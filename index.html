@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-
+        <link rel="stylesheet" href = "style.css">
+        <title>Steganography App</title>
     </head>
     <body>
-
+        <div class = "nav-bar-container">
+            <a class = "nav-button active" href = "index.html"><div class="nav-button-text">Home</div></a>
+            <a class = "nav-button" href = "encoder.html"><div class="nav-button-text">Encoder</div></a>
+            <a class = "nav-button" href = "decoder.html"><div class="nav-button-text">Decoder</div></a>
+        </div>
         
+        <div class = "main-page">
+            <h1>Steganography Encoder and Decoder</h1>
+            <h3>By Jason, Deeyaa, Samuel, Anthony</h3>
+            <p style = "text-align: center; width: 70%;">This app was created for Professor Das' CS-322 Web Programming Course.
+                The app uses LSB or least significant bit steganography to obfuscate data using images as a medium.
+                To use the app, start by uploading and image, a message, and a pgp key to the encoder page and get your encoded image.
+                To decode an image, provide the image and the pgp key on the decoder page to get a message as a result.
+            </p>
+            <br>
+            <img src = "cover-image.jpg" style = "max-width: 60%; max-height: 40%;"/>
+        </div>
     </body>
 </html>
