@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href = "style.css">
+        <script src="decoder.js"></script> 
         <title>Steganography App Decoder</title>
     </head>
     <body>
@@ -15,12 +16,35 @@
         </div>
         <div class = "page-contents">
             <div class = "left-half">
+                <script>function preview(file){
+                    if (file) {
+                      var reader = new FileReader();
+                      reader.readAsDataURL(file);
+                      reader.onloadend = function () {
+                        document.getElementById("img").src = reader.result;
+                      }
+                    }
+                  }</script>
+                  <style>
+                    #img {
+                        position: fixed;
+                        bottom: 0;
+                        left: 0;
+                    }
+                  </style>
+                
+                
+                <!-- <input type="file" accept="image/*" onchange="preview(this.files[0])"/> -->
+                <input type="file" id="myFile" accept="image/*" onchange="preview(this.files[0])" name="Pick Image to decode" />
+                <br\>
+                <img width = "500" height = "500" style="float: left;" id="img" />
 
+                         
+                <!-- Display file -->
             </div>
             <div class = "divider"></div>
             <div class = "right-half">
-
-
+                 <!-- Decode file -->
             </div>
 
         </div>
