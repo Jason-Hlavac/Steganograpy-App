@@ -15,16 +15,30 @@
         </div>
         <div class = "page-contents">
             <div class = "left-half">
-                <form id = "encoder-form" style="height: 100%; width: 80%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-content: flex-start;">
-                    <label for = "message-contents">Message Contents</label>
-                    <textarea id = "message-contents" style="width: 80%; height: 20%;"></textarea>
+                <form id = "encoder-form" style="height: 100%; width: 80%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-content:space-around;">
+                    <div style = "width: 100%; height:20%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+                        <label for = "message-contents">Message Contents</label>
+                        <textarea id = "message-contents" style="width: 80%; height: 80%;"></textarea>
+                    </div>
+                    <div style="width: 100%; display: flex; flex-wrap: wrap;">
+                        <label for="key-input" >Public PGP Key </label>
+                        <div class="break"></div>
+                        <input type="text" id = "key-input" style = "width: 80%;">
+                    </div>
+                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button">
+                    <div style="width: 100%; height: 4%;">
+                        <input type = "submit" class="submit-button" value="Encode Image">
+                    </div>
                 </form>
 
             </div>
             <div class = "divider"></div>
             <div class = "right-half">
-
-
+                <canvas class = "image-canvas"></canvas>
+                <div class="break"></div>
+                <div style="width: 100%; height: 4%;">
+                    <input type = "submit" class="submit-button" value="Download Image">
+                </div>
             </div>
 
         </div>

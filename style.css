@@ -58,12 +58,13 @@ body, html{
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    height: 90%;
+    height: 80%;
 }
 
 .left-half{
     width: 49.5%;
     display: flex;
+    justify-content: center;
 }
 
 .divider{
@@ -76,9 +77,33 @@ body, html{
     width: 49.5%;
     float: right;
     display: flex;
+    justify-content: center;
+    align-items: space-around;
+    flex-wrap: wrap;
 }
 
 .break{
     flex-basis: 100%;
     width: 0;
+}
+
+.submit-button{
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    width: 50%;
+    height: 200%;
+}
+
+.select-image-button::file-selector-button{
+    background-color: #2C2C2C;
+    color: white;
+}
+
+.image-canvas{
+    max-width: 80%;
+    max-height: 60%;
+    aspect-ratio: 1;
+    border-style: solid;
+    border-width: 1px;
 }
