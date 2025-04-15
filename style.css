@@ -52,3 +52,33 @@ body, html{
     flex-direction: column;
     align-items: center;
 }
+
+/* Page Layout for encoder and decoder */
+.page-contents{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 90%;
+}
+
+.left-half{
+    width: 49.5%;
+    display: flex;
+}
+
+.divider{
+    width: 0;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.right-half{
+    width: 49.5%;
+    float: right;
+    display: flex;
+}
+
+.break{
+    flex-basis: 100%;
+    width: 0;
+}
