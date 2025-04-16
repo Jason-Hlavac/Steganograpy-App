@@ -16,35 +16,20 @@
         </div>
         <div class = "page-contents">
             <div class = "left-half">
-                <script>function preview(file){
-                    if (file) {
-                      var reader = new FileReader();
-                      reader.readAsDataURL(file);
-                      reader.onloadend = function () {
-                        document.getElementById("img").src = reader.result;
-                      }
-                    }
-                  }</script>
-                  <style>
-                    #img {
-                        position: fixed;
-                        bottom: 0;
-                        left: 0;
-                    }
                   </style>
                 
                 
                 <!-- <input type="file" accept="image/*" onchange="preview(this.files[0])"/> -->
                 <form id = "decoder-form" style="height: 100%; width: 80%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-content:space-around;">
                     <div style = "width: 100%; height: 30%;">
-                        <canvas class = "decode-canvas"></canvas>
+                        <canvas class = "decode-canvas" id = "decode-canvas"></canvas>
                     </div>
                     <div style="width: 100%; display: flex; flex-wrap: wrap;">
                         <label for="key-input" >Private PGP Key </label>
                         <div class="break"></div>
                         <input type="text" id = "key-input" style = "width: 80%;">
                     </div>
-                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button">
+                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button" accept="image/*">
                     <div style="width: 100%; height: 4%;">
                         <input type = "submit" class="submit-button" value="Decode Image">
                     </div>
@@ -61,5 +46,26 @@
             </div>
 
         </div>
+        <script>
+            const canvas = document.getElementById("decode-canvas");
+            const context = canvas.getContext("2d");
+            const imageInput = document.getElementById("encode-image");
+            imageInput.addEventListener("change", processImage);
+
+            function processImage(){
+                const fileList = this.files;
+                const currFile = fileList[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.onload = function () {
+                        context.drawImage(img, (canvas.width/2)- Math.min((img.width/2), (canvas.width/2)), (canvas.height/2)-Math.min((img.height/2), (canvas.height/2)), Math.min((img.width), (canvas.width)), Math.min((img.height), (canvas.height)));
+                    };
+                    img.src = e.target.result;
+                };
+
+                reader.readAsDataURL(currFile);
+            }
+        </script>
     </body>
 </html>
