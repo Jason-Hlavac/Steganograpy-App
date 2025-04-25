@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href = "style.css">
-        <script src="decoder.js"></script> 
+        <script src="lsbScripts.js"></script> 
         <title>Steganography App Decoder</title>
     </head>
     <body>
@@ -29,9 +29,9 @@
                         <div class="break"></div>
                         <input type="text" id = "key-input" style = "width: 80%;">
                     </div>
-                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button" accept="image/*">
+                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button" accept="image/png">
                     <div style="width: 100%; height: 4%;">
-                        <input type = "submit" class="submit-button" value="Decode Image">
+                        <input type = "button" class="submit-button" value="Decode Image" onclick = "lsbDecodeHelper()">
                     </div>
                 </form>
                          
@@ -42,7 +42,7 @@
                  <!-- Decode file -->
                  <label for = "message-contents">Message Contents</label>
                  <div class="break"></div>
-                 <textarea id = "message-contents" style="width: 80%; height: 60%;"></textarea>
+                 <textarea id = "message-contents" style="width: 80%; height: 60%;" readonly></textarea>
             </div>
 
         </div>
@@ -59,7 +59,9 @@
                 reader.onload = function (e) {
                     const img = new Image();
                     img.onload = function () {
-                        context.drawImage(img, (canvas.width/2)- Math.min((img.width/2), (canvas.width/2)), (canvas.height/2)-Math.min((img.height/2), (canvas.height/2)), Math.min((img.width), (canvas.width)), Math.min((img.height), (canvas.height)));
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0);
                     };
                     img.src = e.target.result;
                 };

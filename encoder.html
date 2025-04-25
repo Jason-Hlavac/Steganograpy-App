@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href = "style.css">
-        <script src="lsbEncode.js"></script>
+        <script src="lsbScripts.js"></script>
         <title>Steganography App Encoder</title>
     </head>
     <body>
@@ -26,7 +26,7 @@
                         <div class="break"></div>
                         <input type="text" id = "key-input" style = "width: 80%;">
                     </div>
-                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button">
+                    <input type = "file" id = "encode-image" accept = "image/png" name = "encode-image" class = "select-image-button">
                     <div style="width: 100%; height: 4%;">
                         <input type = "button" class="submit-button" value="Encode Image" onclick="lsbEncodeHelper()">
                     </div>
@@ -38,7 +38,7 @@
                 <canvas class = "image-canvas" id = "encode-canvas"></canvas>
                 <div class="break"></div>
                 <div style="width: 100%; height: 4%;">
-                    <input type = "submit" class="submit-button" value="Download Image">
+                    <input type = "button" class="submit-button" value="Download Image" onclick = "downloadEncodedImage()">
                 </div>
             </div>
 
