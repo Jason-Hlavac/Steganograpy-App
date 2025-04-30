@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href = "style.css">
+        <script src="https://unpkg.com/openpgp@5.5.0/dist/openpgp.min.js"></script>
         <script src="lsbScripts.js"></script>
         <title>Steganography App Encoder</title>
     </head>
@@ -24,7 +25,7 @@
                     <div style="width: 100%; display: flex; flex-wrap: wrap;">
                         <label for="key-input" >Public PGP Key </label>
                         <div class="break"></div>
-                        <input type="text" id = "key-input" style = "width: 80%;">
+                        <textarea type="text" id = "key-input" style = "width: 80%;"></textarea>
                     </div>
                     <input type = "file" id = "encode-image" accept = "image/png" name = "encode-image" class = "select-image-button">
                     <div style="width: 100%; height: 4%;">

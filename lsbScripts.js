@@ -1,12 +1,18 @@
 //Helper function for the encoding
-function lsbEncodeHelper(){
+async function lsbEncodeHelper(){
     const canvas = document.getElementById("encode-canvas");
     const imageInput = document.getElementById("encode-image");
-    lsbEncode(document.getElementById("message-contents").value, imageInput, canvas);
+    let  message = document.getElementById("message-contents").value;
+    const key = document.getElementById('key-input').value;
+    if(key != ""){
+        message = await pgpEncode(key, message);
+    }
+    
+    lsbEncode(message, imageInput, canvas);
 }
 
 //Main encoding function
-function lsbEncode(message, img, canvas){
+async function lsbEncode(message, img, canvas){
     const startString = "lsbSTART";
     const endString = "lsbEND";
     message = startString + message + endString;
@@ -31,12 +37,12 @@ function lsbEncode(message, img, canvas){
 }
 
 //Helper function for decoding
-function lsbDecodeHelper(){
+async function lsbDecodeHelper(){
     lsbDecode(document.getElementById("decode-canvas"), document.getElementById("message-contents"));
 }
 
 //Main decode function
-function lsbDecode(canvas, messageBox){
+async function lsbDecode(canvas, messageBox){
     const startString = stringToBinary("lsbSTART");
     const endString = stringToBinary("lsbEND");
     const context = canvas.getContext("2d");
@@ -66,12 +72,18 @@ function lsbDecode(canvas, messageBox){
             }
         }
         messageString = messageString.substring(0, messageString.length-endString.length);
-        messageBox.value = binaryToString(messageString)
+        if(document.getElementById("key-input").value != ""){
+            messageString = await pgpDecode(document.getElementById("key-input").value, binaryToString(messageString));
+        }else{
+            messageString = binaryToString(messageString);
+        }
+        messageBox.value = messageString;
     }else{
         console.log("Not a steg");
         //IMAGE DOES NOT HAVE START TAG
     }
 }
+
 // Convert a string to binary (8 bits per character)
 function stringToBinary(inputString){
     output = "";
@@ -94,6 +106,9 @@ function binaryToString(inputBinary){
 //Hide the data in the image
 function writeToImage(message, imageData){
     var data = imageData.data;
+    if(message.length > data.length *0.75){
+        console.log("TEST");
+    }
     var j = 0;
     var i = 0;
     while(i < message.length){
@@ -117,4 +132,29 @@ function downloadEncodedImage(){
     tempEl.download = currFile['name'].split('.')[0];
     tempEl.click();
     tempEl.remove();
+}
+
+async function pgpEncode(key, message){
+    const encrypted = await openpgp.encrypt({
+        message: await openpgp.createMessage({ text: message }),
+        encryptionKeys: await openpgp.readKey({ armoredKey: key })
+    })
+    return encrypted;
+}
+
+async function pgpDecode(key, message){
+    let passphrase = document.getElementById('password').value;
+
+    const privateKey = await openpgp.decryptKey({
+        privateKey: await openpgp.readPrivateKey({ armoredKey: key }),
+        passphrase
+    });
+
+    console.log(message);
+    const decrypted = await openpgp.decrypt({
+        message: await openpgp.readMessage({ armoredMessage: message }),
+        decryptionKeys: privateKey
+    });
+
+    return(decrypted.data);
 }
