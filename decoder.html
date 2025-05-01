@@ -1,50 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href = "style.css">
-        <script src="lsbScripts.js"></script> 
+        <script src="lsbScripts.js"></script>
         <title>Steganography App Decoder</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="icon" href="images/magnifying-glass.png">
     </head>
     <body>
-        <div class = "nav-bar-container">
-            <a class = "nav-button" href = "index.html"><div class="nav-button-text">Home</div></a>
-            <a class = "nav-button" href = "encoder.html"><div class="nav-button-text">Encoder</div></a>
-            <a class = "nav-button  active" href = "decoder.html"><div class="nav-button-text">Decoder</div></a>
-        </div>
-        <div style = "width: 100%; text-align: center;">
-            <h1>Decoder</h1>
-        </div>
-        <div class = "page-contents">
-            <div class = "left-half">
-                  </style>
-                
-                
-                <!-- <input type="file" accept="image/*" onchange="preview(this.files[0])"/> -->
-                <form id = "decoder-form" style="height: 100%; width: 80%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-content:space-around;">
-                    <div style = "width: 100%; height: 30%;">
-                        <canvas class = "decode-canvas" id = "decode-canvas"></canvas>
-                    </div>
-                    <div style="width: 100%; display: flex; flex-wrap: wrap;">
-                        <label for="key-input" >Private PGP Key </label>
-                        <div class="break"></div>
-                        <input type="text" id = "key-input" style = "width: 80%;">
-                    </div>
-                    <input type = "file" id = "encode-image" name = "encode-image" class = "select-image-button" accept="image/png">
-                    <div style="width: 100%; height: 4%;">
-                        <input type = "button" class="submit-button" value="Decode Image" onclick = "lsbDecodeHelper()">
-                    </div>
-                </form>
-                         
-                <!-- Display file -->
+        <nav class="grid md:grid-cols-8 justify-between flex px-10 py-5 lg:mb-10">
+            <div class="flex md:col-span-1 lg:col-span-2">
+                <img src="images/magnifying-glass.png" class="w-20 px-5 lg:px-3">
+                <a href="index.html" class="font-bold text-2xl lg:text-4xl">Steganography</a>
             </div>
-            <div class = "divider"></div>
-            <div class = "right-half" style="flex-wrap: wrap;">
-                 <!-- Decode file -->
-                 <label for = "message-contents">Message Contents</label>
-                 <div class="break"></div>
-                 <textarea id = "message-contents" style="width: 80%; height: 60%;" readonly></textarea>
-            </div>
-
+            <div class="md:col-span-4 lg:col-span-4"></div>
+            <ul class="flex text-center lg:justify-end col-span-3 lg:col-span-2">
+                <li class="list-none inline-block px-5"><a class="no-underline text-black hover:font-bold text-xl" href = "index.html">Home</a></li>
+                <li class="list-none inline-block px-5"><a class="no-underline text-black hover:font-bold text-xl" href = "encoder.html">Encoder</a></li>
+                <li class="list-none inline-block px-5"><a class="underline text-black hover:font-bold text-xl" href = "decoder.html">Decoder</a></li>
+            </ul>
+        </nav>
+        <div class="w-full h-full grid grid-cols-8 justify-center px-10">
+            <section class="w-full flex grid grid-cols-8 mb-20 col-span-8">
+                <div class="col-span-4">
+                    <!-- <input type="file" accept="image/*" onchange="preview(this.files[0])"/> -->
+                    <form id = "decoder-form" style="height: 100%; width: 80%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-content:space-around;">
+                        <div style = "width: 100%; height: 30%;">
+                            <p class="text-md">Decode Canvas</p>
+                            <canvas class = "decode-canvas" id = "decode-canvas"></canvas>
+                        </div>
+                        <div style="width: 100%; display: flex; flex-wrap: wrap;">
+                            <label for="key-input" class="text:md">Private PGP Key </label>
+                            <div class="break"></div>
+                            <input type="text" id = "key-input" style = "width: 80%;">
+                        </div>
+                        <input type = "file" id = "encode-image" name = "encode-image" class="rounded-lg bg-gray-500 hover:bg-gray-700 py-5 px-5 text-white text-sm font-bold" accept="image/png">
+                    </form>
+                            
+                    <!-- Display file -->
+                </div>
+                <div class="col-span-4">
+                    <!-- Decode file -->
+                    <label for = "message-contents">Message Contents</label>
+                    <div class="break"></div>
+                    <textarea id = "message-contents" style="width: 80%; height: 60%;" readonly></textarea>
+                </div>
+            </section>
+            <section class="h-5/100 w-full justify-between grid gap-4 grid-cols-8 col-span-8">
+                <input type = "button" class="col-span-4 w-full rounded-lg bg-red-500 hover:bg-red-700 py-5 px-5 text-white text-sm font-bold" value="Decode Image" onclick="lsbDecodeHelper()">
+                <input type = "button" class="col-span-4 w-full rounded-lg bg-red-500 hover:bg-red-700 py-5 px-5 text-white text-sm font-bold" value="Download Image" onclick = "downloadEncodedImage()">
+            </section>
         </div>
         <script>
             const canvas = document.getElementById("decode-canvas");
