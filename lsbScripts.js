@@ -107,11 +107,12 @@ function binaryToString(inputBinary){
 function writeToImage(message, imageData){
     var data = imageData.data;
     if(message.length > data.length *0.75){
-        console.log("TEST");
+        console.log("Image too small for message");
     }
     var j = 0;
     var i = 0;
     while(i < message.length){
+        //Skip alpha channel
         if(j%4 != 3){
             data[j] = (data[j] & 0xFE) | parseInt(message[i]);
             i++;
